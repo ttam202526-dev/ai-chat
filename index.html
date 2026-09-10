@@ -1,136 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Preface HR Assistant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preface HR Assistant</title>
+    
+    <!-- @n8n/chat CSS Stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@n8n/chat@1/dist/style.css" />
 
-  <!-- 1. Include @n8n/chat CSS Stylesheet -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" />
+    <style>
+        /* CSS Reset & Base Layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  <style>
-    /* Fullpage Container Styling */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #f8f9fa;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
 
-    #n8n-chat-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        /* Container for the Full-Page Chat Window */
+        #n8n-chat-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* 
-      @n8n/chat CSS Variable Overrides for Custom Branding
-      Customize your color palette, fonts, and UI feel here.
-    */
-    :root {
-      /* Brand Palette */
-      --chat--color-primary: #111827;           /* Main theme / Header color */
-      --chat--color-primary-shade-50: #1f2937;  /* Darker shade hover states */
-      --chat--color-secondary: #2563eb;        /* Secondary accents / Links */
-      
-      /* Layout & Backgrounds */
-      --chat--color-white: #ffffff;
-      --chat--color-light: #f3f4f6;            /* Background for chat window/bubbles */
-      --chat--color-light-shade-50: #e5e7eb;   /* Borders / Dividers */
-      
-      /* Text Colors */
-      --chat--color-dark: #111827;
-      
-      /* Messages Styling */
-      --chat--message--user--background: #111827;
-      --chat--message--user--color: #ffffff;
-      --chat--message--bot--background: #ffffff;
-      --chat--message--bot--color: #1f2937;
+        /* -------------------------------------------------------------
+         * @n8n/chat CSS Custom Properties Override 
+         * Tailored for Preface Brand Identity
+         * ------------------------------------------------------------- */
+        :root {
+            /* Brand Colors */
+            --chat--color-primary: #111827;           /* Main Header/Accent Color */
+            --chat--color-primary-shade-50: #1f2937;  /* Hover/Active states */
+            --chat--color-primary-shade-100: #374151;
+            
+            --chat--color-secondary: #0052FF;         /* Secondary Highlight / Accent */
+            --chat--color-secondary-shade-50: #0043CC;
+            
+            --chat--color-white: #ffffff;
+            --chat--color-light: #f3f4f6;
+            --chat--color-light-shade-50: #e5e7eb;
+            --chat--color-medium: #9ca3af;
+            --chat--color-dark: #1f2937;
 
-      /* UI Dimensions & Rounding */
-      --chat--border-radius: 8px;
-      --chat--window--width: 100%;
-      --chat--window--height: 100%;
-    }
+            /* Window & Layout Styling */
+            --chat--window--width: 100%;
+            --chat--window--height: 100%;
+            --chat--border-radius: 0px;
 
-    /* Force the n8n chat inner wrapper to take full height in fullscreen mode */
-    .n8n-chat-widget {
-      height: 100% !important;
-      max-height: 100% !important;
-      width: 100% !important;
-    }
-  </style>
+            /* Header Customization */
+            --chat--header--background: #111827;
+            --chat--header--color: #ffffff;
+
+            /* Message Bubbles */
+            --chat--message--bot--background: #f3f4f6;
+            --chat--message--bot--color: #1f2937;
+            --chat--message--user--background: #111827;
+            --chat--message--user--color: #ffffff;
+            
+            /* Input Area */
+            --chat--input--background: #ffffff;
+            --chat--input--text-color: #1f2937;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Chat Widget Container Target Element -->
-  <div id="n8n-chat-container"></div>
+    <!-- Target mount element for n8n full-page chat -->
+    <div id="n8n-chat-container"></div>
 
-  <!-- 2. Import @n8n/chat via ESM Module Script -->
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    <!-- @n8n/chat JavaScript Bundle -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat@1/dist/chat.bundle.es.js';
 
-    // Setup configuration parameters for n8n HR Assistant
-    createChat({
-      // REQUIRED: Replace this URL with your n8n Chat Trigger Webhook Endpoint
-      webhookUrl: 'https://bckss1234.app.n8n.cloud/webhook/68424003-66f9-4d33-86ac-5a44752f4987/chat',
+        // Initialize the n8n Chat Client
+        createChat({
+            // 1. Webhook Endpoint Settings
+            // Replace with your actual n8n production webhook URL (from Chat Trigger Node)
+            webhookUrl: 'https://bckss1234.app.n8n.cloud/webhook/68424003-66f9-4d33-86ac-5a44752f4987/chat',
+            
+            webhookConfig: {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            },
 
-      // Target element where the widget will mount
-      target: '#n8n-chat-container',
+            // 2. Target Container & Rendering Mode
+            target: '#n8n-chat-container',
+            mode: 'fullscreen',                 // Options: 'window' | 'fullscreen'
 
-      // Render mode: Set to 'fullscreen' for a full-page chat experience
-      mode: 'fullscreen',
+            // 3. Data Keys for n8n Workflow Integration
+            chatInputKey: 'chatInput',          // Key used by the n8n AI Agent / Chat Trigger node
+            chatSessionKey: 'sessionId',        // Key used by the AI Memory node for session history
+            
+            // 4. Session & History Controls
+            loadPreviousSession: true,          // Loads historical context if re-opened in the same browser session
+            showWelcomeScreen: false,           // Set to true if you want a splash screen before entering chat
+            
+            // 5. Streaming Control
+            enableStreaming: false,             // Set to false per specification (waits for full response payload)
 
-      // Disable streaming as requested (returns response once fully generated)
-      enableStreaming: false,
+            // 6. File Upload Settings
+            allowFileUploads: false,             // Set to true if employees need to upload HR documents/PDFs
+            allowedFilesMimeTypes: 'image/*,application/pdf',
 
-      // Initial messaging setup
-      showWelcomeScreen: false,
-      initialMessages: [
-        'Hello! 👋 Welcome to Preface HR Support.',
-        'I am your AI HR Assistant. Feel free to ask about leave policies, employee benefits, remote work guidelines, or company procedures.'
-      ],
+            // 7. Context & User Metadata Passed to n8n
+            // Any custom key-value pairs added here will be available in the workflow payload
+            metadata: {
+                department: 'Employee Inquiries',
+                portalVersion: '1.0.0',
+                platform: 'Preface HR Portal'
+            },
 
-      // Configuration settings for Webhook POST payload key mappings
-      chatInputKey: 'chatInput',       // Key name sent to n8n AI Agent input
-      chatSessionKey: 'sessionId',     // Session key for n8n AI Memory persistent context
-      loadPreviousSession: true,       // Reload previous messages if session exists
+            // 8. Internationalization & Localization
+            defaultLanguage: 'en',
+            i18n: {
+                en: {
+                    title: 'Preface HR Assistant',
+                    subtitle: 'Ask about company policies, benefits, leave requests, and more.',
+                    footer: 'Powered by Preface HR AI',
+                    getStarted: 'Start New Session',
+                    inputPlaceholder: 'Ask a question about Preface HR policy...'
+                }
+            },
 
-      // Optional metadata passed alongside every request sent to n8n
-      metadata: {
-        source: 'preface_hr_portal',
-        department: 'Employee Relations',
-        environment: 'production'
-      },
+            // 9. Initial Greeting Messages (Displayed immediately upon load)
+            initialMessages: [
+                '👋 Hello! Welcome to the **Preface HR Support Portal**.',
+                'I am your AI HR Assistant. You can ask me questions about company policies, leave entitlements, medical benefits, or onboarding procedures. How can I help you today?'
+            ]
+        });
+    </script>
 
-      // Custom HTTP Request Configurations
-      webhookConfig: {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-          // Add auth headers if required by your n8n setup, e.g., 'Authorization': 'Bearer YOUR_TOKEN'
-        }
-      },
-
-      // File Upload Settings
-      allowFileUploads: false,          // Set to true if employees can upload PDFs/Docs
-      allowedFilesMimeTypes: 'image/*,application/pdf',
-
-      // Localization & Text Customizations
-      defaultLanguage: 'en',
-      i18n: {
-        en: {
-          title: 'Preface HR Support',
-          subtitle: 'Ask me anything about company policies and benefits.',
-          footer: 'Powered by Preface HR AI',
-          getStarted: 'New Conversation',
-          inputPlaceholder: 'Type your HR inquiry here...'
-        }
-      }
-    });
-  </script>
 </body>
 </html>
